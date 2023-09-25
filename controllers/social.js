@@ -7,9 +7,31 @@ exports.getIndex = (req, res, next) => {
   });
 };
 
+exports.getMessages = (req, res, next) => {
+  res.render("social/messages", {
+    pageTitle: "Your messages",
+    path: "/messages",
+  });
+};
+
+exports.getNotifications = (req, res, next) => {
+  res.render("social/notifications", {
+    pageTitle: "Your Notifications",
+    path: "/notifications",
+  });
+};
+
+exports.getProfiles = (req, res, next) => {
+  res.render("social/profiles", {
+    pageTitle: "Profiles",
+    path: "/profiles",
+  });
+};
+
 exports.getUserAccount = (req, res, next) => {
   res.render("social/userAccount", {
-    pageTitle: "User Account",
+    pageTitle: "Your Account",
     path: "/userAccount",
   });
 };
+
