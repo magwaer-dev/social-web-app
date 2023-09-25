@@ -7,4 +7,6 @@ const router = express.Router();
 
 router.get("/", socialController.getIndex);
 
+router.get("/userAccount", socialController.getUserAccount);
+
 module.exports = router;

@@ -6,3 +6,10 @@ exports.getIndex = (req, res, next) => {
     path: "/",
   });
 };
+
+exports.getUserAccount = (req, res, next) => {
+  res.render("social/userAccount", {
+    pageTitle: "User Account",
+    path: "/userAccount",
+  });
+};
