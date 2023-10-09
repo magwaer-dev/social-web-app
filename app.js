@@ -2,6 +2,8 @@ const path = require("path");
 
 const express = require("express");
 
+const db = require("./util/database");
+
 const app = express();
 
 app.set("view engine", "ejs");
@@ -12,6 +14,8 @@ const authRoutes = require("./routes/auth");
 const isAuth = require("./middleware/is-auth");
 
 app.use(express.static(path.join(__dirname, "public")));
+
+app.use(express.urlencoded({ extended: false }));
 
 app.use(socialRoutes);
 app.use(authRoutes);

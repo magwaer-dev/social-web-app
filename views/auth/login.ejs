@@ -6,24 +6,22 @@
     <%- include('../includes/navigation.ejs') %>
     <main>
         <div class="login-form">
-            <form>
+            <form action="/login", method="POST">
               <h1>Login</h1>
               <div class="content">
                 <div class="input-field">
-                  <input type="email" placeholder="Email" autocomplete="nope">
+                  <input type="email" name="email" placeholder="Email" autocomplete="yes">
                 </div>
                 <div class="input-field">
-                  <input type="password" placeholder="Password" autocomplete="new-password">
+                  <input type="password" name="password" placeholder="Password" autocomplete="new-password">
                 </div>
                 <a href="#" class="link">Forgot Your Password?</a>
               </div>
               <div class="action">
-                <button>Register</button>
-                <button>Sign in</button>
+                <button type="submit">Sign in</button>
               </div>
             </form>
           </div>
     </main>
 
-  <script  src="./script.js"></script>
 <%- include('../includes/end.ejs') %>
