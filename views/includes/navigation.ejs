@@ -1,25 +1,44 @@
 <header>
   <nav class="navbar">
-    <div class="logo">
-      <a href="/">
-        <img
-          src="https://media.geeksforgeeks.org/wp-content/cdn-uploads/gfg_200x200-min.png"
-          alt="gfg_logo"
-        />
-      </a>
-    </div>
+    <!-- <div class="logo">
+      <img src="/images/logo.png" alt="social_logo" />
+    </div> -->
     <div class="hamburger-menu">
       <span class="line"></span>
       <span class="line"></span>
       <span class="line"></span>
     </div>
     <div class="nav-menu hide">
-      <a href="/">Home</a>
-      <a href="/profiles">Profiles</a>
-      <a href="/messages">Messages</a>
-      <a href="/notifications">Notifications</a>
-      <a href="/userAccount">My Account</a>
-      <a href="/login">Login</a>
+      <ul class="main-header__item-list">
+        <li>
+          <a href="/">Home</a>
+        </li>
+        <li>
+          <a href="/profiles">Profiles</a>
+        </li>
+        <% if (isAuthenticated) { %>
+        <li>
+          <a href="/messages">Messages</a>
+        </li>
+        <a href="/notifications">Notifications</a>
+        <li>
+          <a href="/userAccount">My account</a>
+        </li>
+        <% } %> <% if (!isAuthenticated) { %>
+        <li>
+          <a href="/login">Login</a>
+        </li>
+        <li>
+          <a href="/signup">Sign up</a>
+        </li>
+        <% } else { %>
+        <li>
+          <form action="/logout" method="POST">
+            <button type="submit" class="logout-button">Logout</button>
+          </form>
+        </li>
+        <% } %>
+      </ul>
     </div>
   </nav>
 </header>
