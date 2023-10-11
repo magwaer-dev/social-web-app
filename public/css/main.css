@@ -26,8 +26,8 @@ a {
 
 /* logo style */
 .logo img {
-  width: 4rem;
-  height: 4rem;
+  width: 10rem;
+  height: 6rem;
   margin-left: 1rem;
 }
 
@@ -89,4 +89,51 @@ a {
   .hamburger-menu {
     display: none;
   }
+}
+
+/* CSS for the logout button */
+.logout-button {
+  text-decoration: none;
+  color: black;
+  font-size: 1.3rem;
+  font-weight: bold;
+  display: inline-block; /* Change display to inline-block */
+  text-align: center;
+  padding: 15px 20px;
+  background-color: white;
+  border-radius: 5px;
+  border: none;
+}
+
+.logout-button:hover {
+  background-color: rgb(
+    223,
+    251,
+    219
+  ); /* Hover background color (if different) */
+  /* Add any other hover styles if needed */
+}
+
+.main-header {
+  width: 100%;
+  height: 3.5rem;
+  background-color: #00695c;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.main-header__nav {
+  height: 100%;
+  width: 100%;
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.main-header__item-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
 }

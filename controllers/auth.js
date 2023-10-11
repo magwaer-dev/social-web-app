@@ -6,16 +6,66 @@ const User = require("../models/user");
 const errorMessage = "User already exists";
 
 exports.getLogin = (req, res, next) => {
+  // const isLoggedIn = req.get("Cookie")
+  //   ? req.get("Cookie").split("=")[1].trim()
+  //   : null;
+  console.log("isloggedin:", req.session.isLoggedIn);
   res.render("auth/login", {
     pageTitle: "Login",
     path: "/login",
+    isAuthenticated: req.session.isLoggedIn,
   });
+};
+exports.postLogin = (req, res, next) => {
+  const email = req.body.email;
+  const password = req.body.password;
+
+  User.getUserByEmail(email) // Assuming you have a method to retrieve user by email
+    .then((user) => {
+      if (!user) {
+        console.log("User with this email does not exist.");
+        return res.redirect("/login");
+      }
+
+      bcrypt
+        .compare(password, user.password)
+        .then((passwordsMatch) => {
+          if (passwordsMatch) {
+            req.session.isLoggedIn = true;
+            req.session.save((err) => {
+              if (err) {
+                console.error(err);
+              }
+              res.redirect("/");
+            });
+          } else {
+            console.log("Password is incorrect.");
+            res.redirect("/login");
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+          res.redirect("/login");
+        });
+    })
+    .catch((error) => {
+      console.error(error);
+      res.redirect("/login");
+    });
 };
 
 exports.getSignup = (req, res, next) => {
   res.render("auth/signup", {
-    pageTitle: "Login",
+    pageTitle: "Signup",
     path: "/signup",
+    isAuthenticated: req.session.isLoggedIn,
+  });
+};
+
+exports.postLogout = (req, res, next) => {
+  req.session.destroy((err) => {
+    console.log(err);
+    res.redirect("/");
   });
 };
 

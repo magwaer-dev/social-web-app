@@ -28,4 +28,20 @@ module.exports = class User {
         });
     });
   }
+
+  static getUserByEmail(email) {
+    return db
+      .execute("SELECT * FROM users WHERE email = ?", [email])
+      .then(([rows]) => {
+        if (rows.length > 0) {
+          // User found; return the user data
+          return rows[0];
+        }
+        // User not found
+        return null;
+      })
+      .catch((error) => {
+        throw error;
+      });
+  }
 };
