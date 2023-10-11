@@ -9,7 +9,6 @@ exports.getLogin = (req, res, next) => {
   // const isLoggedIn = req.get("Cookie")
   //   ? req.get("Cookie").split("=")[1].trim()
   //   : null;
-  console.log("isloggedin:", req.session.isLoggedIn);
   res.render("auth/login", {
     pageTitle: "Login",
     path: "/login",
@@ -20,12 +19,14 @@ exports.postLogin = (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
 
-  User.getUserByEmail(email) // Assuming you have a method to retrieve user by email
+  User.getUserByEmail(email)
     .then((user) => {
       if (!user) {
         console.log("User with this email does not exist.");
         return res.redirect("/login");
       }
+      console.log(user);
+      console.log(user.password);
 
       bcrypt
         .compare(password, user.password)
