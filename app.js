@@ -3,6 +3,7 @@ const path = require("path");
 const express = require("express");
 const session = require("express-session");
 const MySQLStore = require("express-mysql-session")(session);
+const csrf = require("csurf");
 
 const dbConnection = require("./util/database");
 
@@ -19,12 +20,17 @@ const sessionStore = new MySQLStore(
   dbConnection // Pass your database connection pool here
 );
 
+const csrfProtection = csrf();
+
 app.set("view engine", "ejs");
 app.set("views", "views");
 
 const socialRoutes = require("./routes/social");
 const authRoutes = require("./routes/auth");
 // const isAuth = require("./middleware/is-auth");
+app.use(express.static(path.join(__dirname, "public")));
+app.use(express.urlencoded({ extended: false }));
+
 
 app.use(
   session({
@@ -35,8 +41,14 @@ app.use(
   })
 );
 
-app.use(express.static(path.join(__dirname, "public")));
-app.use(express.urlencoded({ extended: false }));
+app.use(csrfProtection);
+
+
+app.use((req, res, next) => {
+  res.locals.isAuthenticated = req.session.isLoggedIn;
+  res.locals.csrfToken = req.csrfToken();
+  next();
+});
 
 app.use(socialRoutes);
 app.use(authRoutes);
