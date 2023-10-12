@@ -4,6 +4,7 @@ const express = require("express");
 const session = require("express-session");
 const MySQLStore = require("express-mysql-session")(session);
 const csrf = require("csurf");
+const flash = require("connect-flash");
 
 const dbConnection = require("./util/database");
 
@@ -31,7 +32,6 @@ const authRoutes = require("./routes/auth");
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: false }));
 
-
 app.use(
   session({
     secret: "my-secret",
@@ -40,9 +40,8 @@ app.use(
     store: sessionStore,
   })
 );
-
 app.use(csrfProtection);
-
+app.use(flash());
 
 app.use((req, res, next) => {
   res.locals.isAuthenticated = req.session.isLoggedIn;

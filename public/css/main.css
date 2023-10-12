@@ -66,31 +66,6 @@ a {
   display: none;
 }
 
-/* for Desktop view */
-@media screen and (min-width: 600px) {
-  .navbar {
-    justify-content: space-around;
-  }
-  .nav-menu {
-    display: block;
-    position: static;
-    width: auto;
-    margin-right: 20px;
-    background: none;
-  }
-  .nav-menu a {
-    display: inline-block;
-    padding: 15px 20px;
-  }
-  .nav-menu a:hover {
-    background-color: rgb(223, 251, 219);
-    border-radius: 5px;
-  }
-  .hamburger-menu {
-    display: none;
-  }
-}
-
 /* CSS for the logout button */
 .logout-button {
   text-decoration: none;
@@ -136,4 +111,47 @@ a {
   margin: 0;
   padding: 0;
   display: flex;
+}
+
+.user-message {
+  margin: auto;
+  width: 90%;
+  border: 1px solid rgb(0, 149, 255);
+  padding: 1rem;
+  border-radius: 3px;
+  background: cyan;
+  text-align: center;
+}
+
+.user-message--error {
+  border-color: red;
+  background: rgb(255, 176, 176) ;
+}
+/* for Desktop view */
+@media screen and (min-width: 768px) {
+  .navbar {
+    justify-content: space-around;
+  }
+  .nav-menu {
+    display: block;
+    position: static;
+    width: auto;
+    margin-right: 20px;
+    background: none;
+  }
+  .nav-menu a {
+    display: inline-block;
+    padding: 15px 20px;
+  }
+  .nav-menu a:hover {
+    background-color: rgb(223, 251, 219);
+    border-radius: 5px;
+  }
+  .hamburger-menu {
+    display: none;
+  }
+
+  .user-message {
+    width: 30rem;
+  }
 }
