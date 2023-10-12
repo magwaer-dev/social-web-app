@@ -3,16 +3,17 @@ const bcrypt = require("bcryptjs");
 const db = require("../util/database");
 const User = require("../models/user");
 
-const errorMessage = "User already exists";
-
 exports.getLogin = (req, res, next) => {
-  // const isLoggedIn = req.get("Cookie")
-  //   ? req.get("Cookie").split("=")[1].trim()
-  //   : null;
+  let message = req.flash("error");
+  if (message.length > 0) {
+    message = message[0];
+  } else {
+    message = null;
+  }
   res.render("auth/login", {
     pageTitle: "Login",
     path: "/login",
-    isAuthenticated: req.session.isLoggedIn,
+    errorMessage: message,
   });
 };
 exports.postLogin = (req, res, next) => {
@@ -22,8 +23,13 @@ exports.postLogin = (req, res, next) => {
   User.getUserByEmail(email)
     .then((user) => {
       if (!user) {
-        console.log("User with this email does not exist.");
-        return res.redirect("/login");
+        req.flash("error", `User with this email ${email} does not exist.`);
+        return req.session.save((err) => {
+          if (err) {
+            console.error(err);
+          }
+          res.redirect("/login");
+        });
       }
       console.log(user);
       console.log(user.password);
@@ -40,8 +46,13 @@ exports.postLogin = (req, res, next) => {
               res.redirect("/");
             });
           } else {
-            console.log("Password is incorrect.");
-            res.redirect("/login");
+            req.flash("error", "Password is incorrect.");
+            return req.session.save((err) => {
+              if (err) {
+                console.error(err);
+              }
+              res.redirect("/login");
+            });
           }
         })
         .catch((error) => {
@@ -56,10 +67,17 @@ exports.postLogin = (req, res, next) => {
 };
 
 exports.getSignup = (req, res, next) => {
+  let message = req.flash("error");
+  if (message.length > 0) {
+    message = message[0];
+  } else {
+    message = null;
+  }
   res.render("auth/signup", {
     pageTitle: "Signup",
     path: "/signup",
     isAuthenticated: req.session.isLoggedIn,
+    errorMessage: message,
   });
 };
 
@@ -76,37 +94,35 @@ exports.postSignup = (req, res, next) => {
   const password = req.body.password;
   const confirmPassword = req.body.confirmPassword;
 
-  // Log the user registration attempt
-  console.log("User registration attempt:", {
-    username,
-    email,
-    password,
-    confirmPassword,
+  User.checkIfUserExists(email).then((userExists) => {
+    if (userExists) {
+      req.flash("error", `User with email ${email}  already exists.`);
+      return req.session.save((err) => {
+        if (err) {
+          console.error(err);
+        }
+        return res.redirect("/signup");
+      });
+    } else {
+      // Hash the password and create a new user
+      return bcrypt
+        .hash(password, 12)
+        .then((hashedPassword) => {
+          const user = new User(null, username, email, hashedPassword, null);
+          console.log("User to save:", user);
+          return user.save();
+        })
+        .then(() => {
+          res.redirect("/login");
+        })
+        .catch((error) => {
+          if (error.message === "User already exists") {
+            res.redirect("/signup");
+          } else {
+            console.log(error);
+            res.status(500).send("An error occurred during registration.");
+          }
+        });
+    }
   });
-
-  User.checkIfUserExists(email)
-    .then((userExists) => {
-      if (userExists) {
-        // User with the provided email already exists, log and redirect back to registration
-        console.log("User with email", email, "already exists.");
-        throw new Error(errorMessage);
-      }
-      // User with the provided email does not exist, proceed with user registration
-      return bcrypt.hash(password, 12);
-    })
-    .then((hashedPassword) => {
-      const user = new User(null, username, email, hashedPassword, null);
-      return user.save();
-    })
-    .then(() => {
-      res.redirect("/login"); // Redirect to the login page after successful registration
-    })
-    .catch((error) => {
-      if (error.message === errorMessage) {
-        res.redirect("/signup"); // Redirect to the registration page
-      } else {
-        console.log(error);
-        res.status(500).send("An error occurred during registration.");
-      }
-    });
 };
