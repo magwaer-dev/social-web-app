@@ -66,11 +66,16 @@ body {
 .login-form a.link {
   text-decoration: none;
   color: #747474;
-  letter-spacing: 0.2px;
-  text-transform: uppercase;
+  letter-spacing: 0.2 px;
+  font-size: 20px;
   display: inline-block;
   margin-top: 20px;
 }
+
+.login-form a.link:hover {
+  color: #2d3b55;
+}
+
 .login-form .action {
   display: -webkit-box;
   display: flex;
@@ -106,4 +111,3 @@ body {
 .login-form .action button:nth-child(2):hover {
   background: #3c4d6d;
 }
-

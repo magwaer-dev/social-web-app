@@ -1,5 +1,6 @@
 const path = require("path");
 
+require("dotenv").config();
 const express = require("express");
 const session = require("express-session");
 const MySQLStore = require("express-mysql-session")(session);
@@ -51,4 +52,6 @@ app.use((req, res, next) => {
 
 app.use(socialRoutes);
 app.use(authRoutes);
-app.listen(3000, () => console.log("Social media app listening on port 3000"));
+app.listen(process.env.APP_PORT, () =>
+  console.log(`Social media app listening on port ${process.env.APP_PORT}`)
+);

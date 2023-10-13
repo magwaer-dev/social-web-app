@@ -26,8 +26,8 @@ a {
 
 /* logo style */
 .logo img {
-  width: 10rem;
-  height: 6rem;
+  width: 11rem;
+  height: 7.365rem;
   margin-left: 1rem;
 }
 
@@ -125,7 +125,7 @@ a {
 
 .user-message--error {
   border-color: red;
-  background: rgb(255, 176, 176) ;
+  background: rgb(255, 176, 176);
 }
 /* for Desktop view */
 @media screen and (min-width: 768px) {

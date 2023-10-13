@@ -1,7 +1,49 @@
 const bcrypt = require("bcryptjs");
+const nodemailer = require("nodemailer");
 
 const db = require("../util/database");
 const User = require("../models/user");
+
+//BREVO EMAIL SENDING CONFIGURATIONS
+
+const options = {
+  host: "smtp-relay.brevo.com",
+  port: 587,
+  auth: {
+    user: process.env.LOGIN,
+    pass: process.env.SMTP_KEY,
+  },
+};
+
+let transporter = nodemailer.createTransport(options);
+
+transporter.verify(function (error, success) {
+  if (error) {
+    console.log(error);
+  } else {
+    console.log("Server is ready to take our messages");
+  }
+});
+
+
+//EMAIL SENDING TESTING BELLOW
+
+// const transporter = nodemailer.createTransport({
+//   host: "smtp.ethereal.email", // Use Ethereal Email for testing
+//   port: 587,
+//   auth: {
+//     user: "carter.nader@ethereal.email",
+//     pass: "fzMpRHK1FvaN9S3TAA",
+//   },
+// });
+
+// transporter.verify(function (error, success) {
+//   if (error) {
+//     console.log(error);
+//   } else {
+//     console.log("Server is ready to take our messages");
+//   }
+// });
 
 exports.getLogin = (req, res, next) => {
   let message = req.flash("error");
@@ -51,6 +93,7 @@ exports.postLogin = (req, res, next) => {
               if (err) {
                 console.error(err);
               }
+
               res.redirect("/login");
             });
           }
@@ -113,7 +156,30 @@ exports.postSignup = (req, res, next) => {
           return user.save();
         })
         .then(() => {
-          res.redirect("/login");
+          transporter
+            .sendMail({
+              from: "communisync@gmail.com",
+              to: email,
+              subject: "Welcome to CommuniSync Social App!",
+              html: `
+                  <h1>Welcome to CommuniSync!</h1>
+                  <p>Thank you for signing up!</p>
+                  <p>Click <a href="http://localhost:3000/login">here</a> to login.</p>
+                `,
+            })
+            .then((info) => {
+              console.log("Preview URL: " + nodemailer.getTestMessageUrl(info));
+              if(info.accepted) {
+              console.log("Message sent and accepted: %s", info.accepted);
+              } else {
+              console.log("Message not sent and rejected!: %s", info.rejected);
+              }
+              res.redirect("/login");
+            })
+            .catch((error) => {
+              console.error(error);
+              res.status(500).send("An error occurred during registration.");
+            });
         })
         .catch((error) => {
           if (error.message === "User already exists") {
@@ -124,5 +190,19 @@ exports.postSignup = (req, res, next) => {
           }
         });
     }
+  });
+};
+
+exports.getReset = (req, res, next) => {
+  let message = req.flash("error");
+  if (message.length > 0) {
+    message = message[0];
+  } else {
+    message = null;
+  }
+  res.render("auth/reset", {
+    pageTitle: "Reset Password",
+    path: "/reset",
+    errorMessage: message,
   });
 };
