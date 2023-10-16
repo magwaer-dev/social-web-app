@@ -127,6 +127,10 @@ a {
   border-color: red;
   background: rgb(255, 176, 176);
 }
+.user-message--success {
+  border-color: #22bb33;
+  background: #6fbe78;
+}
 /* for Desktop view */
 @media screen and (min-width: 768px) {
   .navbar {

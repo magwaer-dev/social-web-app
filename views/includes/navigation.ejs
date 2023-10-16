@@ -12,6 +12,11 @@
     </div>
     <div class="nav-menu hide">
       <ul class="main-header__item-list">
+        <% if (isAuthenticated) { %>
+        <li>
+          <a href="/post">Post</a>
+        </li>
+        <% } %>
         <li>
           <a href="/">Home</a>
         </li>

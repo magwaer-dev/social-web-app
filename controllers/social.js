@@ -34,3 +34,12 @@ exports.getUserAccount = (req, res, next) => {
     path: "/userAccount",
   });
 };
+
+exports.getPost = (req, res, next) => {
+  res.render("social/post", {
+    pageTitle: "Post a message",
+    path: "/post",
+
+    
+  });
+};

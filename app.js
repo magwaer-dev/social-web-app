@@ -3,24 +3,18 @@ const path = require("path");
 require("dotenv").config();
 const express = require("express");
 const session = require("express-session");
-const MySQLStore = require("express-mysql-session")(session);
+var SequelizeStore = require("connect-session-sequelize")(session.Store);
 const csrf = require("csurf");
 const flash = require("connect-flash");
 
-const dbConnection = require("./util/database");
+const sequelize = require("./util/database");
+const User = require("./models/user");
 
 const app = express();
 
-const sessionStore = new MySQLStore(
-  {
-    expiration: 1000 * 60 * 60 * 24, // Session expiration time (e.g., 24 hours)
-    createDatabaseTable: true, // Automatically create session table if not exists
-    schema: {
-      tableName: "sessions", // Name of the session table in your database
-    },
-  },
-  dbConnection // Pass your database connection pool here
-);
+const sessionStore = new SequelizeStore({
+  db: sequelize,
+});
 
 const csrfProtection = csrf();
 
@@ -29,7 +23,7 @@ app.set("views", "views");
 
 const socialRoutes = require("./routes/social");
 const authRoutes = require("./routes/auth");
-// const isAuth = require("./middleware/is-auth");
+const isAuth = require("./middleware/is-auth");
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: false }));
 
@@ -41,8 +35,21 @@ app.use(
     store: sessionStore,
   })
 );
+
 app.use(csrfProtection);
 app.use(flash());
+
+app.use((req, res, next) => {
+  if (!req.session.user) {
+    return next();
+  }
+  User.findByPk(req.session.user.id)
+    .then((user) => {
+      req.user = user;
+      next();
+    })
+    .catch((err) => console.log(err));
+});
 
 app.use((req, res, next) => {
   res.locals.isAuthenticated = req.session.isLoggedIn;
@@ -50,8 +57,16 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(socialRoutes);
 app.use(authRoutes);
-app.listen(process.env.APP_PORT, () =>
-  console.log(`Social media app listening on port ${process.env.APP_PORT}`)
-);
+app.use(socialRoutes);
+
+sequelize
+  .sync()
+  .then((result) => {
+    app.listen(process.env.APP_PORT, () =>
+      console.log(`Social media app listening on port ${process.env.APP_PORT}`)
+    );
+  })
+  .catch((error) => {
+    console.error("Database synchronization error:", error);
+  });
