@@ -67,10 +67,6 @@ exports.postLogin = (req, res, next) => {
 
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-<<<<<<< HEAD
-=======
-    console.log(errors.array());
->>>>>>> main
     return res.status(422).render("auth/login", {
       pageTitle: "Login",
       path: "/login",
@@ -149,10 +145,6 @@ exports.postSignup = (req, res, next) => {
   const password = req.body.password;
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-<<<<<<< HEAD
-=======
-    console.log(errors.array());
->>>>>>> main
     return res.status(422).render("auth/signup", {
       pageTitle: "Register",
       path: "/signup",

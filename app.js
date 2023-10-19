@@ -9,10 +9,7 @@ const flash = require("connect-flash");
 
 const sequelize = require("./util/database");
 const User = require("./models/user");
-<<<<<<< HEAD
 const Post = require("./models/post");
-=======
->>>>>>> main
 
 const app = express();
 

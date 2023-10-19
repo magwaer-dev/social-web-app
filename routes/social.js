@@ -7,8 +7,6 @@ const isAuth = require("../middleware/is-auth");
 
 const router = express.Router();
 
-router.get("/post", isAuth, socialController.getPost);
-
 router.get("/", socialController.getIndex);
 
 router.get("/messages", isAuth, socialController.getMessages);
