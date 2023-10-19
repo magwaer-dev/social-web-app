@@ -17,4 +17,8 @@ router.get("/profiles", socialController.getProfiles);
 
 router.get("/userAccount", isAuth, socialController.getUserAccount);
 
+router.get("/post", isAuth, socialController.getCreatePost);
+
+router.post("/post", isAuth, socialController.postCreatePost);
+
 module.exports = router;

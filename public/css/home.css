@@ -1,0 +1,63 @@
+
+li {
+  list-style-type: none;
+}
+
+
+/* Style the last column, if needed */
+
+
+/* Start test */
+
+
+/* end test */
+
+.container {
+  background-color: white;
+  border-radius: 10px; /* Adjust the value to control the roundness of the corners */
+  padding: 20px; /* Adjust the padding to control the content spacing */
+  margin: 20px; /* Adjust the margin to control the space around the card */
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* Add a shadow for a lifted effect */
+  position: relative;
+}
+
+.avatar {
+  float: left; /* Left alignment */
+  border-radius: 50%; /* Makes the image circular */
+  margin-right: 15px; /* Right margin for spacing */
+  width: 60px; /* Set the width to 60px */
+}
+
+/* set the date to top */
+.date {
+  opacity: 0.7;
+  position: absolute; /* Position the date element absolutely */
+  top: 15px; /* Adjust the top value for desired spacing */
+  right: 15px; /* Adjust the right value for desired spacing */
+}
+
+.clear-hr {
+  clear: both; /* Clear both left and right floated elements */
+}
+
+.button {
+  background-color: #333; /* Dark background color */
+  color: #fff; /* White text color */
+  padding: 12px 38px; /* Padding for button size */
+  border: none; /* Remove border */
+  border-radius: 7px; /* Rounded corners */
+  margin-bottom: none; /* Margin at the bottom for spacing */
+  transition: background-color 0.3s; /* Smooth transition for background color */
+}
+
+.button:hover {
+  background-color: #f9b061; /* Background color on hover */
+}
+
+/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+@media (max-width: 600px) {
+  .row {
+    -webkit-flex-direction: column;
+    flex-direction: column;
+  }
+}

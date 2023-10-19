@@ -1,0 +1,22 @@
+<%- include('../includes/head.ejs') %>
+  <link rel="stylesheet" href="/css/post.css">
+  </head>
+  <body>
+    <%- include('../includes/navigation.ejs') %>
+    <main>
+        <div class="post-form">
+            <form action="/post", method="POST">
+              <h1>Your Post</h1>
+              <div class="content">
+                <div class="input-field">
+                  <textarea name="content" rows="10" cols="55" placeholder="Write your post..."></textarea>
+                </div>
+              </div>
+              <div class="action">
+                 <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+                <button type="submit">Post</button>
+              </div>
+            </form>
+          </div>
+    </main>
+<%- include('../includes/end.ejs') %>

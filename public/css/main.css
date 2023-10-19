@@ -4,8 +4,12 @@
   padding: 0;
   transition: all 0.4s;
 }
+::-webkit-scrollbar {
+  display: none;
+}
 body {
   font-family: sans-serif;
+  padding: 10px;
 }
 a {
   text-decoration: none;
@@ -20,14 +24,47 @@ a {
   height: 5rem;
   justify-content: space-between;
   align-items: center;
-  padding-top: 1rem;
-  border-bottom: 2px solid rgb(223, 251, 219);
+  padding-top: 0.8rem;
+  border-bottom: 2px solid #f9b061;
+}
+
+.row {
+  display: flex;
+}
+
+.column {
+  padding: 10px;
+  border-right: 2px solid #f9b061; /* Add a vertical line to the right of each column */
+  padding-right: 10px; /* Optional padding for better spacing */
+}
+
+.column.side {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+
+/* Middle column */
+.column.middle {
+  -webkit-flex: 2;
+  -ms-flex: 2;
+  flex: 2;
+}
+
+.column:last-child {
+  border-right: none; /* Remove the right border from the last column */
+}
+
+.footer {
+  background-color: #f1f1f1;
+  padding: 10px;
+  text-align: center;
 }
 
 /* logo style */
 .logo img {
-  width: 10rem;
-  height: 6rem;
+  width: 11rem;
+  height: 7.365rem;
   margin-left: 1rem;
 }
 
@@ -81,11 +118,7 @@ a {
 }
 
 .logout-button:hover {
-  background-color: rgb(
-    223,
-    251,
-    219
-  ); /* Hover background color (if different) */
+  background-color: #f9b061; /* Hover background color (if different) */
   /* Add any other hover styles if needed */
 }
 
@@ -125,7 +158,11 @@ a {
 
 .user-message--error {
   border-color: red;
-  background: rgb(255, 176, 176) ;
+  background: rgb(255, 176, 176);
+}
+.user-message--success {
+  border-color: #22bb33;
+  background: #6fbe78;
 }
 /* for Desktop view */
 @media screen and (min-width: 768px) {
@@ -144,7 +181,7 @@ a {
     padding: 15px 20px;
   }
   .nav-menu a:hover {
-    background-color: rgb(223, 251, 219);
+    background-color: #f9b061;
     border-radius: 5px;
   }
   .hamburger-menu {

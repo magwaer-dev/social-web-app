@@ -1,9 +1,38 @@
 <%- include('../includes/head.ejs') %>
-  </head>
-  
-  <body>
-    <%- include('../includes/navigation.ejs') %>
+<link rel="stylesheet" href="/css/home.css">
+</head>
+<body>
+  <%- include('../includes/navigation.ejs') %>
   <main>
-    <h1>Home</h1>
+      <div class="row">
+      <div class="column side custom-background">
+        <h1>Home</h1>
+      </div>
+      <div class="column middle custom-background">
+        <% if (posts && posts.length > 0) { %>
+          <% posts.forEach(post => { %>
+        <div class="container"><br>
+          <img src="/images/avatar.png"  alt="Avatar" class="avatar"><br>
+          <span class="date"><%= post.createdAt.toLocaleString() %></span>
+          <h4><%= post.User.username %></h4><br><br>
+          <hr class=".clear-hr"><br>
+          <p><%= post.content %></p><br><br>
+          <button type="button" class="button"><i class=""></i>  Like</button> 
+          <button type="button" class="button"><i class=""></i>  Comment</button> 
+        </div>
+        <% }); %>
+        <% } else { %>
+          <p>No posts available.</p>
+        <% } %>
+      </div>
+      <div class="column side custom-background">column</div>
+    </div>
+
+    <div class="footer">
+      <p>Footer</p>
+    </div>
+    
   </main>
-<%- include('../includes/end.ejs') %>
+  <%- include('../includes/end.ejs') %>
+</body>
+</html>

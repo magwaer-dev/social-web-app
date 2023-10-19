@@ -1,7 +1,9 @@
 const sequelize = require("../util/database");
+const User = require("../models/user");
+
 const { DataTypes } = require("sequelize");
 
-const User = sequelize.define("Users", {
+const Post = sequelize.define("Posts", {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -10,34 +12,28 @@ const User = sequelize.define("Users", {
     unsigned: true,
     autoIncrement: true,
   },
-  username: {
-    type: DataTypes.STRING(45),
+  content: {
+    type: DataTypes.STRING(280), // Adjust the length as needed
     allowNull: false,
-    unique: true,
     validate: {
       notEmpty: true,
     },
   },
-  password: {
-    type: DataTypes.STRING(60),
+  userId: {
+    type: DataTypes.INTEGER,
     allowNull: false,
+    references: {
+      model: "Users", // This should match the name of your User model
+      key: "id",
+    },
   },
-  email: {
-    type: DataTypes.STRING(255),
-    allowNull: false,
-    unique: true,
-  },
-  registration_date: {
+  createdAt: {
     type: DataTypes.DATE,
     allowNull: false,
     defaultValue: sequelize.literal("CURRENT_TIMESTAMP"),
   },
-  resetToken: {
-    type: DataTypes.STRING,
-  },
-  resetTokenExpiration: {
-    type: DataTypes.DATE,
-  },
 });
 
-module.exports = User;
+Post.belongsTo(User, { foreignKey: "userId" });
+
+module.exports = Post;

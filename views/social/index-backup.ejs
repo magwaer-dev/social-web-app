@@ -1,0 +1,66 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/home.css">
+
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<body>
+  <%- include('../includes/navigation.ejs') %>
+  <main>
+      <div class="row">
+      <div class="column side custom-background">
+        <h1>Home</h1>
+      </div>
+      <div class="column middle custom-background">
+        <% if (posts && posts.length > 0) { %>
+          <% posts.forEach(post => { %>
+        <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
+          <img src="/images/avatar.png"  alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">
+          <span class="w3-right w3-opacity"><%= post.createdAt.toLocaleString() %></span>
+          <h4><%= post.User.username %></h4><br>
+          <hr class="w3-clear">
+          <p><%= post.content %></p><br>
+          <button type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> 
+          <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
+        </div>
+        <% }); %>
+        <% } else { %>
+          <p>No posts available.</p>
+        <% } %>
+      </div>
+      <div class="column side custom-background">column</div>
+    </div>
+      <div class="row">
+      <div class="column side custom-background">
+        <h1>Home</h1>
+      </div>
+      <div class="column middle custom-background">
+        <% if (posts && posts.length > 0) { %>
+          <% posts.forEach(post => { %>
+        <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
+          <img src="/images/avatar.png"  alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">
+          <span class="w3-right w3-opacity"><%= post.createdAt.toLocaleString() %></span>
+          <h4><%= post.User.username %></h4><br>
+          <hr class="w3-clear">
+          <p><%= post.content %></p><br>
+          <button type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button> 
+          <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
+        </div>
+        <% }); %>
+        <% } else { %>
+          <p>No posts available.</p>
+        <% } %>
+      </div>
+      <div class="column side custom-background">column</div>
+    </div>
+
+    <div class="footer">
+      <p>Footer</p>
+    </div>
+    
+  </main>
+  <%- include('../includes/end.ejs') %>
+</body>
+</html>

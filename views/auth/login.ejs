@@ -6,22 +6,29 @@
     <%- include('../includes/navigation.ejs') %>
     <main>
       <% if (errorMessage) { %>
-      <div class="user-message user-message--error"><%= errorMessage %></div>
-      <% } %>
+        <div class="user-message user-message--error"><%= errorMessage %></div>
+        <% } else if(successMessage) { %>
+        <div class ="user-message user-message--success"><%= successMessage %></div>
+        <% } %>
         <div class="login-form">
-            <form action="/login", method="POST">
+            <form action="/login", method="POST" novalidate>
               <h1>Login</h1>
               <div class="content">
                 <div class="input-field">
-                  <input type="email" name="email" placeholder="Email" autocomplete="yes">
+                  
+                  <input 
+                  class="<%= validationErrors.find(e => e.path === 'email') ? 'invalid' : '' %>"
+                  type="email" name="email" placeholder="Email" autocomplete="yes" value="<%= oldInput.email %>">
                 </div>
                 <div class="input-field">
-                  <input type="password" name="password" placeholder="Password" autocomplete="new-password">
+                  <input 
+                  class="<%= validationErrors.find(e => e.path === 'password') ? 'invalid' : '' %>"
+                  type="password" name="password" placeholder="Password" autocomplete="new-password" value="<%= oldInput.password %>">
                 </div>
-                <a href="#" class="link">Forgot Your Password?</a>
+                <a href="/reset" class="link">Forgot password?</a>
               </div>
               <div class="action">
-                <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+                 <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
                 <button type="submit">Sign in</button>
               </div>
             </form>
