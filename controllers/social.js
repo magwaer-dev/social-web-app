@@ -46,6 +46,7 @@ exports.getUserAccount = (req, res, next) => {
   });
 };
 
+<<<<<<< HEAD
 exports.getCreatePost = (req, res, next) => {
   res.render("social/post", {
     pageTitle: "Post a message",
@@ -75,3 +76,13 @@ exports.postCreatePost = (req, res, next) => {
       console.log(err);
     });
 };
+=======
+exports.getPost = (req, res, next) => {
+  res.render("social/post", {
+    pageTitle: "Post a message",
+    path: "/post",
+
+    
+  });
+};
+>>>>>>> main

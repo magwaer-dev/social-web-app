@@ -1,5 +1,8 @@
 const sequelize = require("../util/database");
+<<<<<<< HEAD
 const User = require("../models/user");
+=======
+>>>>>>> main
 
 const { DataTypes } = require("sequelize");
 
@@ -34,6 +37,11 @@ const Post = sequelize.define("Posts", {
   },
 });
 
+<<<<<<< HEAD
 Post.belongsTo(User, { foreignKey: "userId" });
 
 module.exports = Post;
+=======
+module.exports = Post;
+
+>>>>>>> main
