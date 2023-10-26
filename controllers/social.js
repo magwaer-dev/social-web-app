@@ -7,6 +7,7 @@ exports.getIndex = (req, res, next) => {
     include: [{ model: User, attributes: ["username"] }], // Include User information
   })
     .then((posts) => {
+      console.log(posts);
       res.render("social/index", {
         pageTitle: "Home",
         path: "/",
@@ -18,6 +19,23 @@ exports.getIndex = (req, res, next) => {
       res.status(500).send("An error occurred");
     });
 };
+exports.getUserAccount = (req, res, next) => {
+  User.findByPk(req.session.user.id).then((user) => {
+    Post.findAll({
+      where: { userId: req.session.user.id },
+      include: [{ model: User, attributes: ["username"] }],
+    }).then((userPosts) => {
+      console.log(userPosts);
+      res.render("social/userAccount", {
+        pageTitle: "Your account",
+        path: "/userAccount",
+        user: user,
+        userPosts: userPosts, // Pass the array of posts to the template
+      });
+    });
+  });
+};
+
 exports.getMessages = (req, res, next) => {
   res.render("social/messages", {
     pageTitle: "Your messages",
@@ -36,13 +54,6 @@ exports.getProfiles = (req, res, next) => {
   res.render("social/profiles", {
     pageTitle: "Profiles",
     path: "/profiles",
-  });
-};
-
-exports.getUserAccount = (req, res, next) => {
-  res.render("social/userAccount", {
-    pageTitle: "Your Account",
-    path: "/userAccount",
   });
 };
 

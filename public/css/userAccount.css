@@ -1,0 +1,40 @@
+
+.accountAvatar {
+  border-radius: 50%; /* Makes the image circular */
+  margin-right: 15px; /* Right margin for spacing */
+  width: 60px; /* Set the width to 60px */
+  margin-right: 15px;
+  margin-top: 20px; /* Add top margin */
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+.accountContainer {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 20px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  position: relative;
+  align-items: flex-start;
+}
+
+.accountButton {
+  background-color: #333;
+  color: #fff;
+  padding: 10px 16px; /* Adjust the padding for a smaller button */
+  border: none;
+  border-radius: 7px;
+  align-self: flex-end; /* Adjust the right position as needed */
+  transition: background-color 0.3s;
+}
+
+.accountButton:hover {
+  background-color: #f9b061; /* Background color on hover */
+}
+
+.accountButton:hover {
+  background-color: #f9b061; /* Background color on hover */
+}
