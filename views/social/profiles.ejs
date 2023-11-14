@@ -1,34 +1,38 @@
 <%- include('../includes/head.ejs') %>
-  </head>
-  
-  <body>
-      <%- include('../includes/navigation.ejs') %>
-      
-    <main>
-      <div class="row">
-        <div class="column side custom-background"><h1>Profiles</h1></div>
-        <div class="column middle custom-background"> 
-               <h1 style="text-align: center;">More content</h1>
-               <h1 style="text-align: center;">More content</h1>
-               <h1 style="text-align: center;">More content</h1>
-               <h1 style="text-align: center;">More content</h1>
-               <h1 style="text-align: center;">More content</h1>
-               <h1 style="text-align: center;">More content</h1>
-               <h1 style="text-align: center;">More content</h1>
-               <h1 style="text-align: center;">More content</h1>
-               <h1 style="text-align: center;">More content</h1>
-               <h1 style="text-align: center;">More content</h1>
-               <h1 style="text-align: center;">More content</h1>
-               <h1 style="text-align: center;">More content</h1>
-               <h1 style="text-align: center;">More content</h1>
-               <h1 style="text-align: center;">More content</h1>
-               <h1 style="text-align: center;">More content</h1>
-               <h1 style="text-align: center;">More content</h1>
-        </div>
-        <div class="column side custom-background">column</div>
- </div>
-        <div class="footer">
-        <p>Footer</p>
-        </div>
-    </main>
-<%- include('../includes/end.ejs') %>
+</head>
+
+<body>
+  <%- include('../includes/navigation.ejs') %>
+
+  <main>
+    <div class="row">
+      <div class="column side custom-background">
+        <h1>Profiles</h1>
+      </div>
+
+      <div class="column middle custom-background">
+        <% if (user && user.length > 0) { %>
+          <% user.forEach(user => { %>
+            <a href="/profiles/<%- user.id %>/account">
+              <div class="container  profile-container"><br>
+                <img src="<%- user.profile_pic %>" alt="Avatar" class="avatar"><br>
+                <h4><b><%- user.username %></b></h4>
+              </div>
+            </a>
+          <% }) %>
+        <% } else { %>
+          <p>No users found.</p>
+        <% } %>
+      </div>
+
+      <div class="column side custom-background">
+        <!-- Add content for the side column if needed -->
+      </div>
+    </div>
+
+    <div class="footer">
+      <p>Footer</p>
+    </div>
+  </main>
+
+  <%- include('../includes/end.ejs') %>

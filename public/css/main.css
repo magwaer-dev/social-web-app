@@ -34,8 +34,8 @@ a {
 
 .column {
   padding: 10px;
-  border-right: 2px solid #403d39; /* Add a vertical line to the right of each column */
-  padding-right: 10px; /* Optional padding for better spacing */
+  border-right: 2px solid #403d39;
+  padding-right: 10px;
   min-height: 100vh;
 }
 
@@ -53,7 +53,7 @@ a {
 }
 
 .column:last-child {
-  border-right: none; /* Remove the right border from the last column */
+  border-right: none;
 }
 
 .footer {
@@ -110,7 +110,7 @@ a {
   color: black;
   font-size: 1.3rem;
   font-weight: bold;
-  display: inline-block; /* Change display to inline-block */
+  display: inline-block;
   text-align: center;
   padding: 15px 20px;
   background-color: white;
@@ -119,8 +119,7 @@ a {
 }
 
 .logout-button:hover {
-  background-color: #f9b061; /* Hover background color (if different) */
-  /* Add any other hover styles if needed */
+  background-color: #f9b061;
 }
 
 .main-header {
@@ -170,43 +169,53 @@ a {
 
 .container {
   background-color: white;
-  border-radius: 10px; /* Adjust the value to control the roundness of the corners */
-  padding: 20px; /* Adjust the padding to control the content spacing */
-  margin: 20px; /* Adjust the margin to control the space around the card */
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* Add a shadow for a lifted effect */
+  border-radius: 10px;
+  padding: 20px;
+  margin: 20px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   position: relative;
 }
+
+.profile-container:hover {
+  background-color: #aeaeae;
+  cursor: pointer;
+}
+
 .avatar {
-  float: left; /* Left alignment */
-  border-radius: 50%; /* Makes the image circular */
-  margin-right: 15px; /* Right margin for spacing */
-  width: 60px; /* Set the width to 60px */
+  float: left;
+  border-radius: 50%;
+  margin-right: 15px;
+  width: 60px;
+}
+
+.capitalize {
+  text-transform: capitalize;
 }
 
 /* set the date to top */
 .date {
   opacity: 0.7;
-  position: absolute; /* Position the date element absolutely */
-  top: 15px; /* Adjust the top value for desired spacing */
-  right: 15px; /* Adjust the right value for desired spacing */
+  position: absolute;
+  top: 15px;
+  right: 15px;
 }
 
 .clear-hr {
-  clear: both; /* Clear both left and right floated elements */
+  clear: both;
 }
 
 .button {
-  background-color: #333; /* Dark background color */
-  color: #fff; /* White text color */
-  padding: 12px 38px; /* Padding for button size */
-  border: none; /* Remove border */
-  border-radius: 7px; /* Rounded corners */
-  margin-bottom: none; /* Margin at the bottom for spacing */
-  transition: background-color 0.3s; /* Smooth transition for background color */
+  background-color: #333;
+  color: #fff;
+  padding: 12px 38px;
+  border: none;
+  border-radius: 7px;
+  margin-bottom: none;
+  transition: background-color 0.3s;
 }
 
 .button:hover {
-  background-color: #f9b061; /* Background color on hover */
+  background-color: #f9b061;
 }
 /* end home.css */
 

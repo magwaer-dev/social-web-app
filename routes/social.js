@@ -15,6 +15,8 @@ router.get("/notifications", isAuth, socialController.getNotifications);
 
 router.get("/profiles", socialController.getProfiles);
 
+router.get("/profiles/:id/account", socialController.getProfilesAccount);
+
 router.get("/userAccount", isAuth, socialController.getUserAccount);
 
 router.get("/post", isAuth, socialController.getCreatePost);

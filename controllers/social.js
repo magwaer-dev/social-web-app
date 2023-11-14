@@ -7,7 +7,6 @@ exports.getIndex = (req, res, next) => {
     include: [{ model: User, attributes: ["username"] }], // Include User information
   })
     .then((posts) => {
-      console.log(posts);
       res.render("social/index", {
         pageTitle: "Home",
         path: "/",
@@ -25,7 +24,6 @@ exports.getUserAccount = (req, res, next) => {
       where: { userId: req.session.user.id },
       include: [{ model: User, attributes: ["username"] }],
     }).then((userPosts) => {
-      console.log(userPosts);
       res.render("social/userAccount", {
         pageTitle: "Your account",
         path: "/userAccount",
@@ -51,10 +49,45 @@ exports.getNotifications = (req, res, next) => {
 };
 
 exports.getProfiles = (req, res, next) => {
-  res.render("social/profiles", {
-    pageTitle: "Profiles",
-    path: "/profiles",
-  });
+  User.findAll()
+    .then((user) => {
+      res.render("social/profiles", {
+        pageTitle: "Profiles",
+        path: "/profiles",
+        user: user,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).send("An error occurred");
+    });
+};
+
+exports.getProfilesAccount = (req, res, next) => {
+  const userId = req.params.id;
+
+  User.findByPk(userId)
+    .then((user) => {
+      if (!user) {
+        return res.status(404).send("User not found");
+      }
+
+      return Post.findAll({
+        where: { userId: userId },
+        include: [{ model: User, attributes: ["username", "profile_pic"] }],
+      }).then((userPosts) => {
+        res.render("social/profilesAccount", {
+          pageTitle: "User Profile",
+          path: `/profiles/${userId}/account`,
+          user: user,
+          userPosts: userPosts,
+        });
+      });
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("An error occurred while fetching user data");
+    });
 };
 
 exports.getCreatePost = (req, res, next) => {

@@ -27,6 +27,15 @@ const User = sequelize.define("Users", {
     allowNull: false,
     unique: true,
   },
+  profile_pic: {
+    type: DataTypes.STRING(255),
+    allowNull: true,
+    validate: {
+      isUrl: true,
+    },
+    defaultValue:
+      "https://embroiderypatch.in/wp-content/uploads/2020/12/avat-01-512.png",
+  },
   registration_date: {
     type: DataTypes.DATE,
     allowNull: false,

@@ -1,0 +1,45 @@
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/userAccount.css">
+</head>
+
+<body>
+  <%- include('../includes/navigation.ejs') %>
+
+  <main>
+    <div class="row">
+      <!-- Left Column -->
+      <div class="column side custom-background"></div>
+      <!-- Middle Column -->
+      <div class="column middle custom-background"> 
+        <h1 class="capitalize"><%= user.username %>'s account</h1>
+        <div class="accountContainer">
+          <img src="<%= user.profile_pic || '/images/avatar.png' %>" class="accountAvatar">
+          <span><h2><%= user.username %></h2></span>
+        </div>
+        
+        <h1>Posts </h1>
+        <% if (userPosts && userPosts.length > 0) { %>
+          <% userPosts.forEach(post => { %>
+            <div class="container"><br>
+              <img src="<%= post.User.profile_pic || '/images/avatar.png' %>" alt="Avatar" class="avatar"><br>
+              <span class="date"><%= post.createdAt.toLocaleString() %></span>
+              <h4><%= post.User.username %></h4><br><br>
+              <hr class="clear-hr"><br>
+              <p><%= post.dataValues.content %></p><br><br>
+              <button type="button" class="button"><i class=""></i>  Like</button> 
+              <button type="button" class="button"><i class=""></i>  Comment</button> 
+            </div>
+          <% }); %>
+        <% } else { %>
+          <br>
+          <p>No posts found.</p>
+        <% } %>
+      </div>
+      <!-- Right Column -->
+      <div class="column side custom-background">column</div>
+    </div>
+    <div class="footer">
+      <p>Footer</p>
+    </div>
+  </main>
+  <%- include('../includes/end.ejs') %>
